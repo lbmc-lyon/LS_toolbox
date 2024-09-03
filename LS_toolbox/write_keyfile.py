@@ -1,6 +1,6 @@
 import numpy as np
 from datetime import datetime
-import read_keyfile as rk
+from LS_toolbox import read_keyfile as rk
 
 
 def write_keyfile(list_lines: list, file_path) -> None:

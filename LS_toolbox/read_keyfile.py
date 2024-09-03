@@ -1,4 +1,4 @@
-import read_mesh as rm
+from LS_toolbox import read_mesh as rm
 
 
 # Read nodes coordinates from a .k file.
