@@ -5,3 +5,4 @@ dist
 LS_toolbox.egg-info
 setup.py
 CHANGELOG
+pyproject.toml
