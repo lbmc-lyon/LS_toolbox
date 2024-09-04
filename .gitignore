@@ -6,3 +6,4 @@ LS_toolbox.egg-info
 setup.py
 CHANGELOG
 pyproject.toml
+auto_install.py
