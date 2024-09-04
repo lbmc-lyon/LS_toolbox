@@ -379,14 +379,13 @@ def add_erosion(list_lines: list, material_id: int, max_princ_stress: float) -> 
     erosion_lines.append(f"{material_id: 10}       0.0       0.0       0.0       0.0       0.0       1.0       1.0\n")
     erosion_lines.append("$*  slsfac    rwpnal    islchk    shlthk    penopt    thkchg     orien    enmass\n")
     erosion_lines.append("$#  mnpres     sigp1     sigvm     mxeps     epssh     sigth   impulse    failtm\n")
-    erosion_lines.append(f"       0.0{max_princ_stress: .3E}       0.0       0.0       0.0       0.0       0.01.4013E-45\n")
+    erosion_lines.append(f"       0.0{max_princ_stress: .3E}       0.0       0.0       0.0       0.0       0.0          \n")
     erosion_lines.append("$#    idam         -         -         -         -         -         -    lcregd\n")
     erosion_lines.append("       160                                                                     4\n")
     erosion_lines.append("$#   lcfld      nsff   epsthin    engcrt    radcrt   lceps12   lceps13   lcepsmx\n")
-    erosion_lines.append("         0         47.0065E-458.0715E-43       0.0         5         6       600\n")
-    erosion_lines.append("$*  wrpang     esort     irnxx    istupd    theory       bwc     miter      proj\n")
+    erosion_lines.append("         0                                     0.0                              \n")
     erosion_lines.append("$#  dteflt   volfrac     mxtmp     dtmin\n")
-    erosion_lines.append("8.4078E-459.8091E-458.7441E-43       0.0\n")
+    erosion_lines.append("                                     0.0\n")
     # Add the lines to the list
     list_lines.extend(erosion_lines)
 
