@@ -381,7 +381,7 @@ def add_erosion(list_lines: list, material_id: int, max_princ_stress: float) -> 
     erosion_lines.append("$#  mnpres     sigp1     sigvm     mxeps     epssh     sigth   impulse    failtm\n")
     erosion_lines.append(f"       0.0{max_princ_stress: .3E}       0.0       0.0       0.0       0.0       0.0          \n")
     erosion_lines.append("$#    idam         -         -         -         -         -         -    lcregd\n")
-    erosion_lines.append("       160                                                                     4\n")
+    erosion_lines.append("                                                                                \n")
     erosion_lines.append("$#   lcfld      nsff   epsthin    engcrt    radcrt   lceps12   lceps13   lcepsmx\n")
     erosion_lines.append("         0                                     0.0                              \n")
     erosion_lines.append("$#  dteflt   volfrac     mxtmp     dtmin\n")
