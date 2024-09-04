@@ -2,6 +2,7 @@
 **/__pycache__
 .idea
 dist
+build
 LS_toolbox.egg-info
 setup.py
 CHANGELOG
