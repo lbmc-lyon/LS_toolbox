@@ -362,6 +362,34 @@ def add_mat_soft_tissue(list_lines: list, material_data: np.ndarray) -> int:
     list_lines.extend(material_lines)
     return material_id
 
+def add_erosion(list_lines: list, material_id: int, max_princ_stress: float) -> None:
+    """
+    Add erosion to a .k file.
+    :param list_lines: lines in the key file (see read_keyfile).
+    :param material_id: Material id to which the erosion will be added.
+    :param max_princ_stress: Maximum principal stress for erosion.
+    """
+    erosion_key = "*MAT_ADD_EROSION"
+    # Check ids if erosion already exist in the file
+    erosion_ids = rk.get_ids(erosion_key, list_lines)
+    # Add the erosion
+    erosion_lines = []
+    erosion_lines.append(f"{erosion_key}\n")
+    erosion_lines.append("$#     mid      excl    mxpres     mneps    effeps    voleps    numfip       ncs\n")
+    erosion_lines.append(f"{material_id: 10}       0.0       0.0       0.0       0.0       0.0       1.0       1.0\n")
+    erosion_lines.append("$*  slsfac    rwpnal    islchk    shlthk    penopt    thkchg     orien    enmass\n")
+    erosion_lines.append("$#  mnpres     sigp1     sigvm     mxeps     epssh     sigth   impulse    failtm\n")
+    erosion_lines.append(f"       0.0{max_princ_stress: .3E}       0.0       0.0       0.0       0.0       0.01.4013E-45\n")
+    erosion_lines.append("$#    idam         -         -         -         -         -         -    lcregd\n")
+    erosion_lines.append("       160                                                                     4\n")
+    erosion_lines.append("$#   lcfld      nsff   epsthin    engcrt    radcrt   lceps12   lceps13   lcepsmx\n")
+    erosion_lines.append("         0         47.0065E-458.0715E-43       0.0         5         6       600\n")
+    erosion_lines.append("$*  wrpang     esort     irnxx    istupd    theory       bwc     miter      proj\n")
+    erosion_lines.append("$#  dteflt   volfrac     mxtmp     dtmin\n")
+    erosion_lines.append("8.4078E-459.8091E-458.7441E-43       0.0\n")
+    # Add the lines to the list
+    list_lines.extend(erosion_lines)
+
 def add_implicit_solver(list_lines: list, dt0: float=0.1):
     """
     Add implicit solver to a .k file.
