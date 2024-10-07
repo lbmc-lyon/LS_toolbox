@@ -14,8 +14,12 @@ def clear_sim_files(sim_dir_path: str, sim_files_names: list = sim_files_names_a
     """
     for sim_file_name in sim_files_names:
         for file in os.listdir(sim_dir_path):
-            if os.path.isdir(os.path.join(sim_dir_path, file)):
-                continue
-            elif re.match(sim_file_name, file):
-                print(f"Removing {file}")
-                os.remove(os.path.join(sim_dir_path, file))
+            try:
+                if os.path.isdir(os.path.join(sim_dir_path, file)):
+                    continue
+                elif re.match(sim_file_name, file):
+                    print(f"Removing {file}")
+                    os.remove(os.path.join(sim_dir_path, file))
+            except:
+                print(f"Failed to remove {file}")
+                pass
