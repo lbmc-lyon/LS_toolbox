@@ -447,7 +447,7 @@ def add_d3plot(list_lines: list, dt: float=0.1):
     extent_binary_lines.append("$#   neiph     neips    maxint    strflg    sigflg    epsflg    rltflg    engflg\n")
     extent_binary_lines.append("         0         0         3         1         1         1         1         1\n")
     extent_binary_lines.append("$#  cmpflg    ieverp    beamip     dcomp      shge     stssz    n3thdt   ialemat\n")
-    extent_binary_lines.append("         0         0         0         1         1         1         2         1\n")
+    extent_binary_lines.append("         0         0         0         1         1         3         2         1\n")
     extent_binary_lines.append("$# nintsld   pkp_sen      sclp     hydro     msscl     therm    intout    nodout\n")
     extent_binary_lines.append("         0         0       1.0         0         0         0\n")
     extent_binary_lines.append("$#    dtdt    resplt     neipb   quadsld    cubsld   deleres\n")
