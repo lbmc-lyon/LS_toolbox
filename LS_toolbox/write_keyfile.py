@@ -315,6 +315,7 @@ def add_mat_ortho(list_lines: list, material_data: np.ndarray) -> int:
 def add_mat_hgo(list_lines: list, material_data: np.ndarray) -> int:
     """
     Add material Holzapfel-Gasser-Ogden (MAT_295) to a .k file.
+    ONLY WORKS WITH EXPLICIT SOLVER.
     :param list_lines: lines in the key file (see read_keyfile).
     :param material_data: Material data [rho, nu, K1, K2].
     :return: Material id.
