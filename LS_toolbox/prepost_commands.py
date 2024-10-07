@@ -1,9 +1,10 @@
 import os, sys
 import numpy as np
 import subprocess
+import multiprocessing
 
 
-NCPU = os.cpu_count() - 1  # Number of CPUs to use for LS-Dyna
+NCPU = multiprocessing.cpu_count() - 1  # Number of CPUs to use for LS-Dyna
 VERBOSE = False  # If True, the LS-PrePost and LS-Dyna output will be displayed in the console
 
 LS_PREPOST_PATH = None  # Path to the LS-PrePost executable
