@@ -341,7 +341,7 @@ def add_mat_soft_tissue(list_lines: list, material_data: np.ndarray) -> int:
     """
     Add material soft tissue to a .k file.
     :param list_lines: lines in the key file (see read_keyfile).
-    :param material_data: Material data [rho, C1, C2, C3, C4, C5, Bulk modulus].
+    :param material_data: Material data [rho, C1, C2, C3, C4, C5, Bulk modulus, Stretch ratio].
     :return: Material id.
     """
     material_key = "*MAT_SOFT_TISSUE"
