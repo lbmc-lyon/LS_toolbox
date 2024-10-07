@@ -415,6 +415,20 @@ $#   lsmtd     lsdir      irad      srad      awgt      sred
     implicit_solver_lines = [line + "\n" for line in implicit_solver_lines]
     list_lines.extend(implicit_solver_lines)
 
+def add_control_timestep(list_lines, dt2ms=-0.01):
+    """
+    Add control timestep to a .k file, specifically a mass scaling.
+    :param list_lines: lines in the key file (see read_keyfile).
+    :param dt2ms: Minimum time step. If timestep is under this value, mass scaling will be applied to the concerned elements.
+    """
+    control_timestep_key = "*CONTROL_TIMESTEP"
+    control_timestep_lines = []
+    control_timestep_lines.append(f"{control_timestep_key}\n")
+    control_timestep_lines.append("$#  dtinit    tssfac      isdo    tslimt     dt2ms      lctm     erode     ms1st\n")
+    control_timestep_lines.append(f"       0.0       0.0         0       0.0{dt2ms: .3E}         0         0         0\n")
+    # Add the lines to the list
+    list_lines.extend(control_timestep_lines)
+
 def add_d3plot(list_lines: list, dt: float=0.1):
     """
     Add d3plot bin out to a .k file.
