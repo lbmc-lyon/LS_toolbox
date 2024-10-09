@@ -89,7 +89,7 @@ def add_curve(list_lines: list, curve_data: np.ndarray) -> int:
     curve_lines.append(f"{curve_id: 10}         0       1.0       1.0       0.0       0.0         0         0\n")
     curve_lines.append("$#                a1                  o1\n")
     for i, data in enumerate(curve_data):
-        curve_lines.append(f"{data[0]: 20}{data[1]: 20}\n")
+        curve_lines.append(f"{data[0]: .13E}{data[1]: .13E}\n")
     # Add the lines to the list
     list_lines.extend(curve_lines)
     return curve_id
@@ -127,7 +127,7 @@ def add_prescribed_motion_velocity(list_lines: list, node_ids: np.ndarray, veloc
     node_set_id = add_node_set(list_lines, node_ids)
 
     # Add the curve
-    curve_id = add_curve(list_lines, np.array([[0, velocity], [9999, velocity]]))
+    curve_id = add_curve(list_lines, np.array([[0, velocity], [1e99, velocity]]))
 
     # Add the vector
     vector_id = add_vector(list_lines, np.array([0, 0, 1]))  # Along z-axis
