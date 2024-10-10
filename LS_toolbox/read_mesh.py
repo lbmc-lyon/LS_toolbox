@@ -31,7 +31,7 @@ def read_elements(mesh_file_path, keyword="ELEMENT_SOLID"):
     Read a mesh file and return the elements and associated node ids.
     :param mesh_file_path: Path to the mesh file.
     :param keyword: Keyword to search for in the mesh file.
-    :return: Elements table (elements and node ids).
+    :return: Elements table (elements and node ids) [[elem_id, part_id, node_id1, node_id2, ...]].
     """
     skip_ortho = False
     if "ORTHO" in keyword:
