@@ -21,6 +21,31 @@ def write_keyfile(list_lines: list, file_path) -> None:
         f.write('*END')
 
 
+def write_keyfile_dict(keyfile_dict: dict, file_path: str) -> None:
+    """
+    Write a dictionary of keywords and their lines to a .k file.
+    :param file_path: Path to the .k file.
+    :param keyfile_dict: Dictionary of keywords and their lines {keyword: [[lines]]}.
+    """
+    with open(file_path, 'w') as f:
+        # Write the start of the file
+        for line in keyfile_dict["START_OF_FILE"]:
+            f.write(line)
+
+        # Write the keywords and their lines
+        for keyword, blocks in keyfile_dict.items():
+            if keyword not in ["START_OF_FILE", "END_OF_FILE"]:
+                for block in blocks:
+                    f.write(f"*{keyword}\n")
+                    for line in block:
+                        f.write(f"{line}\n")
+        f.write("*END\n")
+
+        # Write the end of the file
+        for line in keyfile_dict["END_OF_FILE"]:
+            f.write(line)
+
+
 def add_node_set(list_lines: list, node_ids: np.ndarray) -> int:
     """
     Add node set to a .k file.

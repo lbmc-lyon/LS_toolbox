@@ -33,6 +33,39 @@ def read_keyfile(file_path: str) -> list:
             file.append(line)
     return file
 
+def read_keyfile_dict(file_path: str) -> dict:
+    """
+    Read a .k file and return a dictionary of keywords and their lines.
+    :param file_path: Path to the .k file.
+    :return: Dictionary of keywords and their lines {keyword: [[lines]]}.
+    """
+    with open(file_path, 'r') as f:
+        file = {}
+        file["START_OF_FILE"] = []
+        # Read after the line "*KEYWORD"
+        for line in f:
+            if line.startswith('*KEYWORD'):
+                # Get back one line before
+                break
+            file["START_OF_FILE"].append(line)
+        # Read until the line "*END"
+        keyword = "KEYWORD"
+        file[keyword] = [[]]
+        for line in f:
+            if line.startswith('*END'):
+                break
+            if line.startswith("*"):
+                keyword = line.replace("*", "").replace("\n", "")
+                if keyword not in file:
+                    file[keyword] = []
+                file[keyword].append([])
+            else:
+                file[keyword][-1].append(line.replace("\n", ""))
+        file["END_OF_FILE"] = []
+        for line in f:
+            file["END_OF_FILE"].append(line)
+    return file
+
 def get_ids(key: str, list_lines) -> list:
     """
     Get the ids of the given key in the .k file.
