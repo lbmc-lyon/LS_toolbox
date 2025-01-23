@@ -1,7 +1,8 @@
-__version__ = '0.1.8'
+__version__ = '0.1.8.1'
 
 
 from . import clear_sim_files
+from . import convert
 from . import display
 from . import prepost_commands
 from . import read_keyfile
