@@ -572,3 +572,74 @@ def add_hourglass_energy(list_lines: list) -> None:
     hourglass_lines.append("         2         2         1         1         2         1         1         1\n")
     # Add the lines to the list
     list_lines.extend(hourglass_lines)
+
+def add_part(list_lines: list, name: str=None) -> int:
+    """
+    Add part to a .k file.
+    :param list_lines: lines in the key file (see read_keyfile).
+    :param name: Name of the part.
+    """
+    part_key = "*PART"
+    part_lines = []
+    part_lines.append(f"{part_key}\n")
+    part_lines.append("$#                                                                         title\n")
+    part_ids = rk.get_ids(part_key, list_lines)
+    part_id = max(part_ids) + 1 if part_ids else 1
+    part_lines.append(f"{name}\n")
+    part_lines.append("$#     pid     secid       mid     eosid      hgid      grav    adpopt      tmid\n")
+    part_lines.append("         1         0         0         0         0         0         0         0\n")
+    # Add the lines to the list
+    list_lines.extend(part_lines)
+    return part_id
+
+def add_nodes(list_lines: list, nodes: np.ndarray) -> None:
+    """
+    Add nodes to a .k file.
+    :param list_lines: lines in the key file (see read_keyfile).
+    :param nodes: Nodes coordinates [[node_id, x, y, z]].
+    """
+    node_key = "*NODE"
+    node_lines = []
+    node_lines.append(f"{node_key}\n")
+    node_lines.append("$#   nid               x               y               z      tc      rc\n")
+    for node in nodes:
+        node_lines.append(f"{int(node[0]): 8}{node[1]: .9e}{node[2]: .9e}{node[3]: .9e}       0       0\n")
+    # Add the lines to the list
+    list_lines.extend(node_lines)
+
+def add_element_solids(list_lines: list, part_id: int, elements: np.ndarray) -> None:
+    """
+    Add element solids to a .k file.
+    :param list_lines: lines in the key file (see read_keyfile).
+    :param part_id: Part id.
+    :param elements: Elements [[element_id, node1, node2, node3, node4, ...]].
+    """
+    if len(elements[0][1:]) in [4, 8]:
+        element_key = "*ELEMENT_SOLID"
+        element_lines = []
+        element_lines.append(f"{element_key}\n")
+        element_lines.append("$#   eid      pid      n1      n2      n3      n4      n5      n6      n7      n8\n")
+        if len(elements[0][1:]) == 4:
+            for element in elements:
+                element_lines.append(f"{element[0]: 8}{part_id: 8}{element[1]: 8}{element[2]: 8}{element[3]: 8}{element[4]: 8}{element[4]: 8}{element[4]: 8}{element[4]: 8}{element[4]: 8}\n")
+        if len(elements[0][1:]) == 8:
+            for element in elements:
+                element_lines.append(f"{element[0]: 8}{part_id: 8}{element[1]: 8}{element[2]: 8}{element[3]: 8}{element[4]: 8}{element[5]: 8}{element[6]: 8}{element[7]: 8}{element[8]: 8}\n")
+
+
+
+    elif len(elements[0][1:]) in [10]:
+        element_key = "*ELEMENT_SOLID (ten nodes format)"
+        element_lines = []
+        element_lines.append(f"{element_key}\n")
+        for element in elements[:1]:
+            element_lines.append("$#   eid      pid\n")
+            element_lines.append(f"{element[0]: 8}{part_id: 8}\n")
+            element_lines.append("$#    n1      n2      n3      n4      n5      n6      n7      n8      n9     n10\n")
+            element_lines.append(f"{element[1]: 8}{element[2]: 8}{element[3]: 8}{element[4]: 8}{element[5]: 8}{element[6]: 8}{element[7]: 8}{element[8]: 8}{element[9]: 8}{element[10]: 8}\n")
+        for element in elements[1:]:
+            element_lines.append(f"{element[0]: 8}{part_id: 8}\n")
+            element_lines.append(f"{element[1]: 8}{element[2]: 8}{element[3]: 8}{element[4]: 8}{element[5]: 8}{element[6]: 8}{element[7]: 8}{element[8]: 8}{element[9]: 8}{element[10]: 8}\n")
+
+    # Add the lines to the list
+    list_lines.extend(element_lines)
