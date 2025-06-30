@@ -355,9 +355,20 @@ def add_mat_hgo(list_lines: list, material_data: np.ndarray) -> int:
     material_lines.append("$#     mid       rho      aopt\n")
     material_lines.append(f"{material_id: 10}{material_data[0]: .3E}         2\n")
     material_lines.append("$#   title     itype      beta        nu\n")
-    material_lines.append(f"ISO                3       0.0{material_data[1]: .3E}\n")
-    material_lines.append("$#      k1        k2\n")
-    material_lines.append(f"{material_data[2]: .3E}{material_data[3]: .3E}\n")
+    material_lines.append(f"ISO               -2      -2.0{material_data[1]: .3E}\n")
+    material_lines.append("$#      c1        c2        c3\n")
+    material_lines.append(f"{material_data[2]: .3E}                    \n")
+    material_lines.append("$#   title     atype    intype        nf\n")
+    material_lines.append(f"ANISO             -1         0         1\n")
+    material_lines.append("$#   theta         a         b\n")
+    material_lines.append(f"       0.0       0.0       1.0\n")
+    material_lines.append("$#   ftype      fcid        k1        k2\n")
+    material_lines.append(f"         1         0{material_data[3]: .3E}{material_data[4]: .3E}\n")
+    material_lines.append(f"$#      xp        yp        zp        a1        a2        a3      macf         -\n")
+    material_lines.append("       0.0       0.0       0.0       0.0       0.0       1.0         1          \n")
+    material_lines.append(f"$#      v1        v2        v3        d1        d2        d3      beta       ref\n")
+    material_lines.append(f"       0.0       0.0       0.0       1.0       0.0       0.0       0.0       0.0\n")
+
     # Add the lines to the list
     list_lines.extend(material_lines)
     return material_id
