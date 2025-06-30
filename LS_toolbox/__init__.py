@@ -1,4 +1,4 @@
-__version__ = '0.1.8.2'
+__version__ = '0.1.8.3'
 
 
 from . import clear_sim_files
